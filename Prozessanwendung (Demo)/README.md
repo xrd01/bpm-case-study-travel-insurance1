@@ -2,13 +2,13 @@
 
 ### Hinweis  
 > Dieses Projekt ist eine Starthilfe zur Umsetzung der Fallstudie "Reisekrankenversicherung". Es enthält  
-> nur ein unvollständiges Prozessmodell und etwas Beispielcode zur veranschaulichung. Die vollständige  
+> nur ein unvollständiges Prozessmodell und etwas Beispielcode zur Veranschaulichung. Die vollständige  
 > Umsetzung der eigentlichen Fachlichkeit ist Teil der Fallstudie und nicht in diesem Projekt zu finden.  
 
 ### :star: Features
-* Automatisches Deployment von Prozessmodellen im C8-Cluster 
-* Simples Frontend (Thymeleaf) zur Dateneingabe
-* Start von Prozessinstanzen über das Frontend, bzw. der Prozessschnittstelle
+* Automatisches Deployment von Prozessmodellen im Cluster von Camunda 8
+* Simples Frontend auf Basis von [Thymeleaf](https://www.thymeleaf.org) zur Dateneingabe
+* Start von Prozessinstanzen über das Frontend, bzw. die Prozessschnittstelle
 * Zeebe-Job-Worker zur Verarbeitung eines Service-Tasks, inkl. Auslesen von Daten
 
 ### Voraussetzungen
