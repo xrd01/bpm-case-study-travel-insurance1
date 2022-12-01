@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_03uib9k" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.5.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.1.0">
+  <bpmn:collaboration id="Collaboration_0jvx49f">
+    <bpmn:participant id="Participant_0uwqjqk" name="Reisekrankenversicherung anlegen" processRef="TravelInsuranceProcess" />
+  </bpmn:collaboration>
+  <bpmn:process id="TravelInsuranceProcess" name="Reisekrankenversicherung (Demo)" isExecutable="true">
+    <bpmn:sequenceFlow id="Flow_03n3psw" sourceRef="StartEvent_1" targetRef="Activity_1yb5jbv" />
+    <bpmn:sequenceFlow id="Flow_1qzm510" sourceRef="Activity_1yb5jbv" targetRef="Event_0vw9rnx" />
+    <bpmn:startEvent id="StartEvent_1" name="Reisekranken-versicherung beantragt">
+      <bpmn:outgoing>Flow_03n3psw</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="Activity_1yb5jbv" name="Eingabedaten lesen">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="read-input-data" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_03n3psw</bpmn:incoming>
+      <bpmn:outgoing>Flow_1qzm510</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_0vw9rnx" name="Daten verarbeitet">
+      <bpmn:incoming>Flow_1qzm510</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+  <bpmn:error id="Error_0uv8zu0" name="Error_2onb268" errorCode="DATA_NOT_VALID" />
+  <bpmn:error id="Error_04h4biy" name="Error_3cejst6" errorCode="*" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0jvx49f">
+      <bpmndi:BPMNShape id="Participant_0uwqjqk_di" bpmnElement="Participant_0uwqjqk" isHorizontal="true">
+        <dc:Bounds x="129" y="52" width="541" height="248" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="242" y="149" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="224" y="192" width="72" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0wgop8p_di" bpmnElement="Activity_1yb5jbv">
+        <dc:Bounds x="350" y="127" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0vw9rnx_di" bpmnElement="Event_0vw9rnx">
+        <dc:Bounds x="522" y="149" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="497" y="192" width="86" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_03n3psw_di" bpmnElement="Flow_03n3psw">
+        <di:waypoint x="278" y="167" />
+        <di:waypoint x="350" y="167" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1qzm510_di" bpmnElement="Flow_1qzm510">
+        <di:waypoint x="450" y="167" />
+        <di:waypoint x="522" y="167" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
