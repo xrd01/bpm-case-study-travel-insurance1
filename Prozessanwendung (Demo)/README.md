@@ -59,11 +59,11 @@ zeebeClient.newCreateInstanceCommand()
 
 ![operate](doc/operate.png)
 
-* Im Anwendungslog stehen die Los-Ausgaben des [JobWorker](src/main/java/de/viadee/bpm/camunda/travelinsuranceprocessapp/worker/TravelInsuranceReadInputData.java): 
+* Im Anwendungslog stehen die Log-Ausgaben des [JobWorker](src/main/java/de/viadee/bpm/camunda/travelinsuranceprocessapp/worker/TravelInsuranceReadInputData.java): 
 ```
 ... d.v.b.c.t.w.TravelInsuranceReadInputData : Start 'read-input-data'... 
-... d.v.b.c.t.w.TravelInsuranceReadInputData : input-data [type=String]: {"travelInsurance":{"travelData":{"start":"2023-01-14","end":"2023-01-22","destination":"Austria","cost":800},"policyHolder":{"id":"","firstname":"Alex","lastname":"Meyer","birthday":"2001-11-11","phone":"","mail":"","childOfPolicyHolder":false,"address":{"street":"","number":"","postCode":"","city":"","country":""},"insured":false},"insuredPartners":[],"coronaInsurance":true,"travelCancellation":true}}
-... d.v.b.c.t.w.TravelInsuranceReadInputData : input-data [type=TravelInsuranceRequest]: [travelInsurance=[coronaInsurance=true,insuredPartners=[],policyHolder=[address=[city=,country=,number=,postCode=,street=],birthday=2001-11-11,childOfPolicyHolder=false,firstname=Alex,id=,isInsured=false,lastname=Meyer,mail=,phone=],travelCancellation=true,travelData=[cost=800,destination=Austria,end=2023-01-22,start=2023-01-14]]]
+... d.v.b.c.t.w.TravelInsuranceReadInputData : input-data [type=String]: {"travelInsurance":{"travelData":{"start":"2023-01-14","end":"2023-01-22","destination":"Austria","cost":800},"policyHolder":{"id":"","firstname":"Alex","lastname":"Meyer","birthday":"2001-11-11","iban":"","mail":"","childOfPolicyHolder":false,"address":{"street":"","number":"","postCode":"","city":"","country":""},"insured":false},"insuredPartners":[],"baggageInsurance":true,"travelCancellation":true}}
+... d.v.b.c.t.w.TravelInsuranceReadInputData : input-data [type=TravelInsuranceRequest]: [travelInsurance=[baggageInsurance=true,insuredPartners=[],policyHolder=[address=[city=,country=,number=,postCode=,street=],birthday=2001-11-11,childOfPolicyHolder=false,firstname=Alex,id=,isInsured=false,lastname=Meyer,mail=,iban=],travelCancellation=true,travelData=[cost=800,destination=Austria,end=2023-01-22,start=2023-01-14]]]
 ```
 
 ### :point_up: Hinweis

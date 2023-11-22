@@ -13,7 +13,7 @@ public class TravelInsurance {
     private TravelData travelData;
     private Partner policyHolder;
     private List<Partner> insuredPartners;
-    private boolean coronaInsurance;
+    private boolean baggageInsurance;
     private boolean travelCancellation;
 
     public TravelData getTravelData() {
@@ -43,12 +43,12 @@ public class TravelInsurance {
         this.insuredPartners = insuredPartners;
     }
 
-    public boolean isCoronaInsurance() {
-        return coronaInsurance;
+    public boolean isBaggageInsurance() {
+        return baggageInsurance;
     }
 
-    public void setCoronaInsurance(final boolean coronaInsurance) {
-        this.coronaInsurance = coronaInsurance;
+    public void setBaggageInsurance(final boolean baggageInsurance) {
+        this.baggageInsurance = baggageInsurance;
     }
 
     public boolean isTravelCancellation() {

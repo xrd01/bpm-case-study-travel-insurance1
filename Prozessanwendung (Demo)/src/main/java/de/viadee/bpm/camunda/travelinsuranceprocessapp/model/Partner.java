@@ -14,7 +14,7 @@ public class Partner {
     private String lastname;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthday;
-    private String phone;
+    private String iban;
     private String mail;
     private boolean childOfPolicyHolder;
     private Address address;
@@ -54,12 +54,12 @@ public class Partner {
         this.birthday = birthday;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getIban() {
+        return iban;
     }
 
-    public void setPhone(final String phone) {
-        this.phone = phone;
+    public void setIban(final String iban) {
+        this.iban = iban;
     }
 
     public String getMail() {
