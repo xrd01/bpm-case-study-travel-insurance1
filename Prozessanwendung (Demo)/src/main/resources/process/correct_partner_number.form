@@ -1,0 +1,33 @@
+{
+  "components": [
+    {
+      "text": "=\"The partner \" + firstName + \" \" + lastName + \"specified the wrong partner number please search the partner in the system to correct the partner number\"",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_1n89cer",
+        "columns": null
+      },
+      "id": "Field_00coolv"
+    },
+    {
+      "label": "Correct partner number",
+      "type": "number",
+      "layout": {
+        "row": "Row_1vcwglz",
+        "columns": null
+      },
+      "id": "Field_1haawti",
+      "key": "partnerId"
+    }
+  ],
+  "type": "default",
+  "id": "Form_0p4upi9",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.3.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.17.0"
+  },
+  "schemaVersion": 12
+}

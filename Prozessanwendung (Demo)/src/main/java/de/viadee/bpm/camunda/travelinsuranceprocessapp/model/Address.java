@@ -2,6 +2,8 @@ package de.viadee.bpm.camunda.travelinsuranceprocessapp.model;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
+import java.util.Objects;
+
 import static org.apache.commons.lang3.builder.ToStringStyle.NO_CLASS_NAME_STYLE;
 
 public class Address {
@@ -54,5 +56,20 @@ public class Address {
     @Override
     public String toString() {
         return ReflectionToStringBuilder.toString(this, NO_CLASS_NAME_STYLE, false, false, true, Object.class);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == this)
+            return true;
+        if (!(o instanceof Address))
+            return false;
+        Address other = (Address) o;
+        boolean addressEqual = Objects.equals(this.city, other.city) &&
+                Objects.equals(this.country, other.country) &&
+                Objects.equals(this.number, other.number) &&
+                Objects.equals(this.postCode, other.postCode) &&
+                Objects.equals(this.street, other.street);
+        return addressEqual;
     }
 }
