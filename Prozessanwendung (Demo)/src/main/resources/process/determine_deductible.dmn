@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_01c97am" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.17.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.3.0" camunda:diagramRelationId="00ea3e17-ec47-4623-8723-94fb8d6fa70e">
+  <decision id="Decision_1w85nsy" name="Decision 1">
+    <informationRequirement id="InformationRequirement_054ckif">
+      <requiredInput href="#InputData_0b9yrb6" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0o0mz2w">
+      <requiredInput href="#InputData_0prb45d" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0lj60qu">
+      <requiredInput href="#InputData_0xnitjf" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0fum1zf" hitPolicy="FIRST">
+      <input id="InputClause_14usdre" label="Bestandskunde">
+        <inputExpression id="LiteralExpression_0ebx0sh" typeRef="boolean">
+          <text>customerExist</text>
+        </inputExpression>
+      </input>
+      <input id="Input_1" label="Dauer der Reise in Tagen" biodi:width="192">
+        <inputExpression id="InputExpression_1" typeRef="number">
+          <text>travelDurationInDays</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0tkci4m" label="Reiseziel">
+        <inputExpression id="LiteralExpression_17r2ni1" typeRef="string">
+          <text>travelDestinationClass</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Selbstbehalt in €" typeRef="number" />
+      <rule id="DecisionRule_0v3rihg">
+        <inputEntry id="UnaryTests_1vr08bt">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1mgwtbv">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0diwr2m">
+          <text>"Deutschland"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_15z41m7">
+          <text>100</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0sqrz3z">
+        <inputEntry id="UnaryTests_0jxsz1p">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kp7ab6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gvbie2">
+          <text>"Deutschland"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0zqgu53">
+          <text>0</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_02jm6dh">
+        <inputEntry id="UnaryTests_1wlfeli">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0x091q4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ajlt50">
+          <text>"EU-Ausland"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0kxkyjg">
+          <text>100</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1bgxnau">
+        <inputEntry id="UnaryTests_0cpwx2l">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jwi5l9">
+          <text>&lt;= 30</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ssyexd">
+          <text>"Nicht-EU Ausland"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1g07s0b">
+          <text>200</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ul535u">
+        <inputEntry id="UnaryTests_0kc9a9r">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qmg4ea">
+          <text>[31..90]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0e56txc">
+          <text>"Nicht-EU Ausland"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0135916">
+          <text>300</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0p9rzwg">
+        <inputEntry id="UnaryTests_1o35euo">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mjeoq3">
+          <text>&gt; 90</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1u3m6fe">
+          <text>"Nicht-EU Ausland"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1w9ffl9">
+          <text>500</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_0b9yrb6" name="Reiseziel" />
+  <inputData id="InputData_0prb45d" name="Dauer der Reise" />
+  <inputData id="InputData_0xnitjf" name="Bestandskunde" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="Decision_1w85nsy">
+        <dc:Bounds height="80" width="180" x="300" y="100" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_19tipfg" dmnElementRef="InputData_0b9yrb6">
+        <dc:Bounds height="45" width="125" x="157" y="117" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1rspcbe" dmnElementRef="InformationRequirement_054ckif">
+        <di:waypoint x="282" y="140" />
+        <di:waypoint x="280" y="140" />
+        <di:waypoint x="300" y="140" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1caj48u" dmnElementRef="InputData_0prb45d">
+        <dc:Bounds height="45" width="125" x="327" y="217" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1ypxtw5" dmnElementRef="InformationRequirement_0o0mz2w">
+        <di:waypoint x="390" y="217" />
+        <di:waypoint x="390" y="200" />
+        <di:waypoint x="390" y="180" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_0no4gmn" dmnElementRef="InputData_0xnitjf">
+        <dc:Bounds height="45" width="125" x="507" y="117" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1i2w9g9" dmnElementRef="InformationRequirement_0lj60qu">
+        <di:waypoint x="507" y="140" />
+        <di:waypoint x="500" y="140" />
+        <di:waypoint x="480" y="140" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

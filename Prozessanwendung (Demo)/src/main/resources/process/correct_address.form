@@ -1,0 +1,213 @@
+{
+  "components": [
+    {
+      "text": "# Feld",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_1a6hy6j",
+        "columns": 5
+      },
+      "id": "Field_0wz69d2"
+    },
+    {
+      "text": "# Benutzereingabe",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_1a6hy6j",
+        "columns": 5
+      },
+      "id": "Field_0zie3lc"
+    },
+    {
+      "text": "# System",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_1a6hy6j",
+        "columns": 6
+      },
+      "id": "Field_0etgcut"
+    },
+    {
+      "text": " Street",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_0qgiy3g",
+        "columns": 5
+      },
+      "id": "Field_1whnad1"
+    },
+    {
+      "text": "=addressFromUser.street",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_0qgiy3g",
+        "columns": 5
+      },
+      "id": "Field_0bzicx1"
+    },
+    {
+      "text": "=addressInSystem.street",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_0qgiy3g",
+        "columns": 5
+      },
+      "id": "Field_031yph4"
+    },
+    {
+      "text": "Hausnummer",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_0wznljh",
+        "columns": null
+      },
+      "id": "Field_1g8e8hy"
+    },
+    {
+      "text": "=addressFromUser.number",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_0wznljh",
+        "columns": null
+      },
+      "id": "Field_0pml3x8"
+    },
+    {
+      "text": "=addressInSystem.number",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_0wznljh",
+        "columns": 6
+      },
+      "id": "Field_05k9cwe"
+    },
+    {
+      "text": "Postleitzahl",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_1ugellj",
+        "columns": null
+      },
+      "id": "Field_0rwmlau"
+    },
+    {
+      "text": "=addressFromUser.postCode",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_1ugellj",
+        "columns": null
+      },
+      "id": "Field_077877d"
+    },
+    {
+      "text": "=addressInSystem.postCode",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_1ugellj",
+        "columns": null
+      },
+      "id": "Field_1sz7klh"
+    },
+    {
+      "text": "Stadt",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_1pru66f",
+        "columns": null
+      },
+      "id": "Field_0vm6ilf"
+    },
+    {
+      "text": "=addressFromUser.city",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_1pru66f",
+        "columns": null
+      },
+      "id": "Field_1eae18k"
+    },
+    {
+      "text": "=addressInSystem.city",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_1pru66f",
+        "columns": null
+      },
+      "id": "Field_0llp0l3"
+    },
+    {
+      "text": "Land",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_0bafra1",
+        "columns": null
+      },
+      "id": "Field_0j8b6fn"
+    },
+    {
+      "text": "=addressFromUser.country",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_0bafra1",
+        "columns": null
+      },
+      "id": "Field_1ecr7xu"
+    },
+    {
+      "text": "=addressInSystem.country",
+      "label": "Text view",
+      "type": "text",
+      "layout": {
+        "row": "Row_0bafra1",
+        "columns": null
+      },
+      "id": "Field_0uy0i0x"
+    },
+    {
+      "values": [
+        {
+          "label": "Benutzereingabe",
+          "value": "User"
+        },
+        {
+          "label": "System",
+          "value": "System"
+        }
+      ],
+      "label": "Wähle die Korrekte Quelle für die Adresse aus",
+      "type": "select",
+      "layout": {
+        "row": "Row_1i2cazx",
+        "columns": null
+      },
+      "id": "Field_0xyaj3o",
+      "key": "correctSource"
+    }
+  ],
+  "type": "default",
+  "id": "Form_0zot3q3",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.3.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.17.0"
+  },
+  "schemaVersion": 12
+}

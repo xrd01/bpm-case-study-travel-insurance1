@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_13w6a4s" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.17.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.3.0" camunda:diagramRelationId="af916fd4-2dae-4467-aac7-1bce57fbc9e9">
+  <decision id="Decision_006od3h" name="Decision 1">
+    <informationRequirement id="InformationRequirement_1tlox2l">
+      <requiredInput href="#InputData_0i3jbv3" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_1dbekdh" hitPolicy="FIRST">
+      <input id="Input_1" label="Reiseziel">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>travelInsurance.travelData.destination</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Klasse" name="travelDestinationClass" typeRef="string" />
+      <rule id="DecisionRule_0w6hkel">
+        <inputEntry id="UnaryTests_1rekpyw">
+          <text>"Deutschland"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1oes2tu">
+          <text>"Deutschland"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0v3orje">
+        <inputEntry id="UnaryTests_06ugewc">
+          <text>"Portugal"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0qmi55r">
+          <text>"EU Ausland"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1b8idk5">
+        <inputEntry id="UnaryTests_176i4t4">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0udcggf">
+          <text>"Nicht-EU Ausland"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_0i3jbv3" name="Travel Destination" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="Decision_006od3h">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1nqcf2f" dmnElementRef="InputData_0i3jbv3">
+        <dc:Bounds height="45" width="125" x="188" y="258" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1z0ovhh" dmnElementRef="InformationRequirement_1tlox2l">
+        <di:waypoint x="251" y="258" />
+        <di:waypoint x="250" y="200" />
+        <di:waypoint x="250" y="180" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

@@ -5,8 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
-@SpringBootApplication
-@Deployment(resources = "classpath*:/process/**/*.bpmn")
+@SpringBootApplication(scanBasePackages = "de.viadee.bpm.camunda.travelinsuranceprocessapp.*")
+@Deployment(resources = { "classpath*:/process/**/*.bpmn", "classpath*:/process/**/*.dmn" })
 public class TravelInsuranceProcessAppApplication {
 	public static final String TRAVEL_INSURANCE_PROCESS_ID = "TravelInsuranceProcess";
 

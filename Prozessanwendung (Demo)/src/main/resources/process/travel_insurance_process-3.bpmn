@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_03uib9k" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="f9f6097" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.2.0" camunda:diagramRelationId="a121f4c3-6c98-4f04-808b-7ca8f377a3a2">
+  <bpmn:collaboration id="Collaboration_0jvx49f">
+    <bpmn:participant id="Participant_0uwqjqk" name="Reisekrankenversicherung anlegen" processRef="TravelInsuranceProcess" />
+  </bpmn:collaboration>
+  <bpmn:process id="TravelInsuranceProcess" name="Reisekrankenversicherung (Demo)" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="Reisekranken-versicherung beantragt">
+      <bpmn:outgoing>Flow_03n3psw</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="Activity_1yb5jbv" name="Eingabedaten lesen">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="read-input-data" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_03n3psw</bpmn:incoming>
+      <bpmn:outgoing>Flow_16aozj9</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:parallelGateway id="Gateway_08onm9m">
+      <bpmn:incoming>Flow_16aozj9</bpmn:incoming>
+      <bpmn:outgoing>Flow_00pnjdo</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0uj2k71</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:callActivity id="Activity_0zoby45" name="Travel data check">
+      <bpmn:extensionElements>
+        <zeebe:calledElement processId="CheckTravelDataProcess" propagateAllChildVariables="false" propagateAllParentVariables="false" />
+        <zeebe:ioMapping>
+          <zeebe:input source="=travelInsurance.travelData" target="travelData" />
+          <zeebe:output source="=travelCostIsPositive and travelStartBeforeEnd and travelStartInFuture and travelDestinationIsSafe" target="travelDataIsValid" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_00pnjdo</bpmn:incoming>
+      <bpmn:outgoing>Flow_0vl8jjj</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:callActivity id="Activity_0915lzn" name="Personal data check">
+      <bpmn:extensionElements>
+        <zeebe:calledElement processId="CheckPersonalDataProcess" propagateAllChildVariables="false" propagateAllParentVariables="false" />
+        <zeebe:ioMapping>
+          <zeebe:input source="=travelInsurance.policyHolder" target="personalData" />
+          <zeebe:input source="=count(travelInsurance.insuredPartners)" target="insuredPartnersCount" />
+          <zeebe:input source="=travelInsurance.policyHolder.firstname" target="firstname" />
+          <zeebe:input source="=travelInsurance.policyHolder.mail" target="email" />
+          <zeebe:output source="=policyHolderIsAdult and ibanIsValid and countryOfResidenceIsValid and belowInsuredPartnersMax" target="personalDataIsValid" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0uj2k71</bpmn:incoming>
+      <bpmn:outgoing>Flow_1qn42jn</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:parallelGateway id="Gateway_01jkmns">
+      <bpmn:incoming>Flow_0vl8jjj</bpmn:incoming>
+      <bpmn:incoming>Flow_1qn42jn</bpmn:incoming>
+      <bpmn:outgoing>Flow_0jpbnhk</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_03n3psw" sourceRef="StartEvent_1" targetRef="Activity_1yb5jbv" />
+    <bpmn:sequenceFlow id="Flow_00pnjdo" sourceRef="Gateway_08onm9m" targetRef="Activity_0zoby45" />
+    <bpmn:sequenceFlow id="Flow_0uj2k71" sourceRef="Gateway_08onm9m" targetRef="Activity_0915lzn" />
+    <bpmn:sequenceFlow id="Flow_0vl8jjj" sourceRef="Activity_0zoby45" targetRef="Gateway_01jkmns" />
+    <bpmn:sequenceFlow id="Flow_1qn42jn" sourceRef="Activity_0915lzn" targetRef="Gateway_01jkmns" />
+    <bpmn:exclusiveGateway id="Gateway_044n9p6" name="Data is correct?">
+      <bpmn:incoming>Flow_0jpbnhk</bpmn:incoming>
+      <bpmn:outgoing>Flow_00gdhi7</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1ek03ub</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_0jpbnhk" sourceRef="Gateway_01jkmns" targetRef="Gateway_044n9p6" />
+    <bpmn:sequenceFlow id="Flow_00gdhi7" name="no" sourceRef="Gateway_044n9p6" targetRef="Event_0f9x4cb">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=not(travelDataIsValid) or not(personalDataIsValid)</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="Event_0f9x4cb" name="Antrag abgelehnt">
+      <bpmn:incoming>Flow_00gdhi7</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:intermediateThrowEvent id="Event_140lt8b" name="Data correct">
+      <bpmn:incoming>Flow_1ek03ub</bpmn:incoming>
+      <bpmn:outgoing>Flow_16pe1wd</bpmn:outgoing>
+    </bpmn:intermediateThrowEvent>
+    <bpmn:sequenceFlow id="Flow_1ek03ub" name="yes" sourceRef="Gateway_044n9p6" targetRef="Event_140lt8b">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=travelDataIsValid and personalDataIsValid</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0070gch" sourceRef="Activity_0smqs09" targetRef="Activity_1qeeazn" />
+    <bpmn:sequenceFlow id="Flow_0hxvmy4" sourceRef="Activity_1toe2q7" targetRef="Event_0lh6nbf" />
+    <bpmn:sequenceFlow id="Flow_15sp84a" sourceRef="Gateway_0xvjqow" targetRef="Activity_13cpqe4" />
+    <bpmn:sequenceFlow id="Flow_15gvkdr" sourceRef="Gateway_0xvjqow" targetRef="Activity_09bdmjm" />
+    <bpmn:sequenceFlow id="Flow_0z2nwd3" sourceRef="Activity_13cpqe4" targetRef="Gateway_08ybd3s" />
+    <bpmn:endEvent id="Event_0lh6nbf" name="Antrag bearbeitet">
+      <bpmn:incoming>Flow_0hxvmy4</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="Activity_1toe2q7" name="Print and send insurance policy documents" zeebe:modelerTemplate="io.camunda.connectors.HttpJson.v2" zeebe:modelerTemplateVersion="5" zeebe:modelerTemplateIcon="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE3LjAzMzUgOC45OTk5N0MxNy4wMzM1IDEzLjQ0NzUgMTMuNDI4MSAxNy4wNTI5IDguOTgwNjUgMTcuMDUyOUM0LjUzMzE2IDE3LjA1MjkgMC45Mjc3NjUgMTMuNDQ3NSAwLjkyNzc2NSA4Ljk5OTk3QzAuOTI3NzY1IDQuNTUyNDggNC41MzMxNiAwLjk0NzA4MyA4Ljk4MDY1IDAuOTQ3MDgzQzEzLjQyODEgMC45NDcwODMgMTcuMDMzNSA0LjU1MjQ4IDE3LjAzMzUgOC45OTk5N1oiIGZpbGw9IiM1MDU1NjIiLz4KPHBhdGggZD0iTTQuOTMxMjYgMTQuMTU3MUw2Ljc4MTA2IDMuNzE0NzFIMTAuMTM3NUMxMS4xOTE3IDMuNzE0NzEgMTEuOTgyNCAzLjk4MzIzIDEyLjUwOTUgNC41MjAyN0MxMy4wNDY1IDUuMDQ3MzYgMTMuMzE1IDUuNzMzNTggMTMuMzE1IDYuNTc4OTJDMTMuMzE1IDcuNDQ0MTQgMTMuMDcxNCA4LjE1NTIyIDEyLjU4NDEgOC43MTIxNUMxMi4xMDY3IDkuMjU5MTMgMTEuNDU1MyA5LjYzNzA1IDEwLjYyOTggOS44NDU5TDEyLjA2MTkgMTQuMTU3MUgxMC4zMzE1TDkuMDMzNjQgMTAuMDI0OUg3LjI0MzUxTDYuNTEyNTQgMTQuMTU3MUg0LjkzMTI2Wk03LjQ5NzExIDguNTkyODFIOS4yNDI0OEM5Ljk5ODMyIDguNTkyODEgMTAuNTkwMSA4LjQyMzc0IDExLjAxNzcgOC4wODU2MUMxMS40NTUzIDcuNzM3NTMgMTEuNjc0MSA3LjI2NTEzIDExLjY3NDEgNi42Njg0MkMxMS42NzQxIDYuMTkxMDYgMTEuNTI0OSA1LjgxODExIDExLjIyNjUgNS41NDk1OUMxMC45MjgyIDUuMjcxMTMgMTAuNDU1OCA1LjEzMTkgOS44MDkzNiA1LjEzMTlIOC4xMDg3NEw3LjQ5NzExIDguNTkyODFaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="io.camunda:http-json:1" retries="3" />
+        <zeebe:ioMapping>
+          <zeebe:input source="basic" target="authentication.type" />
+          <zeebe:input source="user1" target="authentication.username" />
+          <zeebe:input source="KUDipj7Z" target="authentication.password" />
+          <zeebe:input source="POST" target="method" />
+          <zeebe:input source="=&#34;https://travel-insurance-api.aws-playground.viadee.cloud/document/print-job/insurance-policy/&#34; + insuranceId" target="url" />
+          <zeebe:input source="20" target="connectionTimeoutInSeconds" />
+        </zeebe:ioMapping>
+        <zeebe:taskHeaders>
+          <zeebe:header key="retryBackoff" value="PT0S" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0sf2shg</bpmn:incoming>
+      <bpmn:outgoing>Flow_0hxvmy4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1qeeazn" name="Send confirmation email" zeebe:modelerTemplate="io.camunda.connectors.SendGrid.v2" zeebe:modelerTemplateVersion="2" zeebe:modelerTemplateIcon="data:image/svg+xml;utf8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Cpath%20d%3D%22M0.285706%205.40847H5.43837V10.5611H0.285706V5.40847Z%22%20fill%3D%22white%22%2F%3E%0A%3Cpath%20d%3D%22M0.285706%205.40847H5.43837V10.5611H0.285706V5.40847Z%22%20fill%3D%22%2399E1F4%22%2F%3E%0A%3Cpath%20d%3D%22M5.43837%2010.5611L10.5611%2010.5616V15.6844H5.43837V10.5611Z%22%20fill%3D%22white%22%2F%3E%0A%3Cpath%20d%3D%22M5.43837%2010.5611L10.5611%2010.5616V15.6844H5.43837V10.5611Z%22%20fill%3D%22%2399E1F4%22%2F%3E%0A%3Cpath%20d%3D%22M0.285706%2015.6846L5.43837%2015.6844V15.7143H0.285706V15.6846ZM0.285706%2010.5619H5.43837V15.6844L0.285706%2015.6846V10.5619Z%22%20fill%3D%22%231A82E2%22%2F%3E%0A%3Cpath%20d%3D%22M5.43837%200.285706H10.5611V5.40847H5.43837V0.285706ZM10.5616%205.43837H15.7143V10.5611H10.5616V5.43837Z%22%20fill%3D%22%2300B3E3%22%2F%3E%0A%3Cpath%20d%3D%22M5.43837%2010.5611L10.5611%2010.5616V5.40847H5.43837V10.5611Z%22%20fill%3D%22%23009DD9%22%2F%3E%0A%3Cpath%20d%3D%22M10.5611%200.285706H15.7143V5.40847H10.5611V0.285706Z%22%20fill%3D%22%231A82E2%22%2F%3E%0A%3Cpath%20d%3D%22M10.5611%205.40847H15.7143V5.43837H10.5616L10.5611%205.40847Z%22%20fill%3D%22%231A82E2%22%2F%3E%0A%3C%2Fsvg%3E">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="io.camunda:sendgrid:1" />
+        <zeebe:ioMapping>
+          <zeebe:input source="{{secrets.GRUPPE_1_SEND_GRID_API_KEY}}" target="apiKey" />
+          <zeebe:input source="Erdogan Seref" target="from.name" />
+          <zeebe:input source="erdogan.seref@tu-dortmund.de" target="from.email" />
+          <zeebe:input source="Xiaorui Deng" target="to.name" />
+          <zeebe:input source="xiaorui.deng@tu-dortmund.de" target="to.email" />
+          <zeebe:input source="byTemplate" target="unMappedFieldNotUseInModel.mailType" />
+          <zeebe:input source=" d-a4ed39e2d602490fb07a4b2d694f91fd" target="template.id" />
+          <zeebe:input source="={&#10;  &#34;firstName&#34;: travelInsurance.policyHolder.firstName,&#10;  &#34;lastName&#34;: travelInsurance.policyHolder.lastName&#10;}" target="template.data" />
+        </zeebe:ioMapping>
+        <zeebe:taskHeaders />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0070gch</bpmn:incoming>
+      <bpmn:outgoing>Flow_0sf2shg</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0smqs09" name="Save contract" zeebe:modelerTemplate="io.camunda.connectors.HttpJson.v2" zeebe:modelerTemplateVersion="5" zeebe:modelerTemplateIcon="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE3LjAzMzUgOC45OTk5N0MxNy4wMzM1IDEzLjQ0NzUgMTMuNDI4MSAxNy4wNTI5IDguOTgwNjUgMTcuMDUyOUM0LjUzMzE2IDE3LjA1MjkgMC45Mjc3NjUgMTMuNDQ3NSAwLjkyNzc2NSA4Ljk5OTk3QzAuOTI3NzY1IDQuNTUyNDggNC41MzMxNiAwLjk0NzA4MyA4Ljk4MDY1IDAuOTQ3MDgzQzEzLjQyODEgMC45NDcwODMgMTcuMDMzNSA0LjU1MjQ4IDE3LjAzMzUgOC45OTk5N1oiIGZpbGw9IiM1MDU1NjIiLz4KPHBhdGggZD0iTTQuOTMxMjYgMTQuMTU3MUw2Ljc4MTA2IDMuNzE0NzFIMTAuMTM3NUMxMS4xOTE3IDMuNzE0NzEgMTEuOTgyNCAzLjk4MzIzIDEyLjUwOTUgNC41MjAyN0MxMy4wNDY1IDUuMDQ3MzYgMTMuMzE1IDUuNzMzNTggMTMuMzE1IDYuNTc4OTJDMTMuMzE1IDcuNDQ0MTQgMTMuMDcxNCA4LjE1NTIyIDEyLjU4NDEgOC43MTIxNUMxMi4xMDY3IDkuMjU5MTMgMTEuNDU1MyA5LjYzNzA1IDEwLjYyOTggOS44NDU5TDEyLjA2MTkgMTQuMTU3MUgxMC4zMzE1TDkuMDMzNjQgMTAuMDI0OUg3LjI0MzUxTDYuNTEyNTQgMTQuMTU3MUg0LjkzMTI2Wk03LjQ5NzExIDguNTkyODFIOS4yNDI0OEM5Ljk5ODMyIDguNTkyODEgMTAuNTkwMSA4LjQyMzc0IDExLjAxNzcgOC4wODU2MUMxMS40NTUzIDcuNzM3NTMgMTEuNjc0MSA3LjI2NTEzIDExLjY3NDEgNi42Njg0MkMxMS42NzQxIDYuMTkxMDYgMTEuNTI0OSA1LjgxODExIDExLjIyNjUgNS41NDk1OUMxMC45MjgyIDUuMjcxMTMgMTAuNDU1OCA1LjEzMTkgOS44MDkzNiA1LjEzMTlIOC4xMDg3NEw3LjQ5NzExIDguNTkyODFaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="io.camunda:http-json:1" retries="3" />
+        <zeebe:ioMapping>
+          <zeebe:input source="basic" target="authentication.type" />
+          <zeebe:input source="user1" target="authentication.username" />
+          <zeebe:input source="KUDipj7Z" target="authentication.password" />
+          <zeebe:input source="POST" target="method" />
+          <zeebe:input source="https://travel-insurance-api.aws-playground.viadee.cloud/insurance-policy" target="url" />
+          <zeebe:input source="20" target="connectionTimeoutInSeconds" />
+          <zeebe:input source="={&#10;  &#34;insuranceTakerId&#34;: travelInsurance.policyHolder.id,&#10;  &#34;travelDetails&#34;: {&#10;    &#34;begin&#34;: string(date(travelInsurance.travelData.start)),&#10;    &#34;end&#34;: string(date(travelInsurance.travelData.end)),&#10;    &#34;destinationCountryCode&#34;: travelInsurance.travelData.destination,&#10;    &#34;totalCost&#34;: travelInsurance.travelData.cost&#10;  },&#10;  &#34;coverage&#34;: {&#10;    &#34;costRetention&#34;: 0,&#10;    &#34;withBaggageCoverage&#34;: travelInsurance.baggageInsurance,&#10;    &#34;withTravelExtensionCoverage&#34;: travelInsurance.travelCancellation,&#10;    &#34;withTravelAbortionCoverage&#34;: true&#10;  },&#10;  &#34;insuredPersons&#34;: for insuredPerson in travelInsurance.insuredPartners return {&#10;    &#34;firstName&#34;: insuredPerson.firstname,&#10;      &#34;lastName&#34;: insuredPerson.lastname,&#10;      &#34;birthDate&#34;:  string(date(insuredPerson.birthday)),&#10;      &#34;childOfInsuranceTaker&#34;: insuredPerson.childOfPolicyHolder&#10;  }&#10;    &#10;}" target="body" />
+        </zeebe:ioMapping>
+        <zeebe:taskHeaders>
+          <zeebe:header key="resultVariable" value="response" />
+          <zeebe:header key="resultExpression" value="={insuranceId: response.body}" />
+          <zeebe:header key="retryBackoff" value="PT0S" />
+        </zeebe:taskHeaders>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_04z9oqb</bpmn:incoming>
+      <bpmn:outgoing>Flow_0070gch</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:businessRuleTask id="Activity_1lan415" name="Determine deductible">
+      <bpmn:extensionElements>
+        <zeebe:calledDecision decisionId="Decision_1w85nsy" resultVariable="deductible" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0k6ibd8</bpmn:incoming>
+      <bpmn:outgoing>Flow_04z9oqb</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:sequenceFlow id="Flow_1o6cyyw" sourceRef="Activity_09bdmjm" targetRef="Gateway_08ybd3s" />
+    <bpmn:sequenceFlow id="Flow_16pe1wd" sourceRef="Event_140lt8b" targetRef="Gateway_0xvjqow" />
+    <bpmn:parallelGateway id="Gateway_0xvjqow">
+      <bpmn:incoming>Flow_16pe1wd</bpmn:incoming>
+      <bpmn:outgoing>Flow_15sp84a</bpmn:outgoing>
+      <bpmn:outgoing>Flow_15gvkdr</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:scriptTask id="Activity_13cpqe4" name="Calculate travel duration">
+      <bpmn:extensionElements>
+        <zeebe:script expression="=(date(travelEnd) - date(travelStart)).days" resultVariable="travelDurationInDays" />
+        <zeebe:ioMapping>
+          <zeebe:input source="=travelInsurance.travelData.start" target="travelStart" />
+          <zeebe:input source="=travelInsurance.travelData.end" target="travelEnd" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_15sp84a</bpmn:incoming>
+      <bpmn:outgoing>Flow_0z2nwd3</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:businessRuleTask id="Activity_09bdmjm" name="Classify travel destination country">
+      <bpmn:extensionElements>
+        <zeebe:calledDecision decisionId="Decision_006od3h" resultVariable="travelDestinationClass" />
+        <zeebe:ioMapping>
+          <zeebe:input source="=travelInsurance.travelData.destination" target="travelDestination" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_15gvkdr</bpmn:incoming>
+      <bpmn:outgoing>Flow_1o6cyyw</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:parallelGateway id="Gateway_08ybd3s">
+      <bpmn:incoming>Flow_0z2nwd3</bpmn:incoming>
+      <bpmn:incoming>Flow_1o6cyyw</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ihwp12</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_0ihwp12" sourceRef="Gateway_08ybd3s" targetRef="Activity_0314kbq" />
+    <bpmn:callActivity id="Activity_0314kbq" name="Customer existence check">
+      <bpmn:extensionElements>
+        <zeebe:calledElement processId="Process_lmbepjw" propagateAllChildVariables="false" />
+        <zeebe:ioMapping>
+          <zeebe:input source="=travelInsurance.policyHolder.firstname" target="firstName" />
+          <zeebe:input source="=travelInsurance.policyHolder.lastname" target="lastName" />
+          <zeebe:input source="=travelInsurance.policyHolder.id" target="customerNumber" />
+          <zeebe:input source="=travelInsurance.policyHolder.address" target="addressFromUser" />
+          <zeebe:output source="=customerExist" target="customerExist" />
+          <zeebe:output source="=correctAddress" target="address" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0ihwp12</bpmn:incoming>
+      <bpmn:outgoing>Flow_0k6ibd8</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:sequenceFlow id="Flow_04z9oqb" sourceRef="Activity_1lan415" targetRef="Activity_0smqs09" />
+    <bpmn:sequenceFlow id="Flow_0sf2shg" sourceRef="Activity_1qeeazn" targetRef="Activity_1toe2q7" />
+    <bpmn:sequenceFlow id="Flow_16aozj9" sourceRef="Activity_1yb5jbv" targetRef="Gateway_08onm9m" />
+    <bpmn:sequenceFlow id="Flow_0k6ibd8" sourceRef="Activity_0314kbq" targetRef="Activity_1lan415" />
+  </bpmn:process>
+  <bpmn:error id="Error_0uv8zu0" name="Error_2onb268" errorCode="DATA_NOT_VALID" />
+  <bpmn:error id="Error_04h4biy" name="Error_3cejst6" errorCode="*" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0jvx49f">
+      <bpmndi:BPMNShape id="Participant_0uwqjqk_di" bpmnElement="Participant_0uwqjqk" isHorizontal="true">
+        <dc:Bounds x="129" y="80" width="1999" height="410" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="242" y="259" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="224" y="302" width="72" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0wgop8p_di" bpmnElement="Activity_1yb5jbv">
+        <dc:Bounds x="350" y="237" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1qvfils_di" bpmnElement="Gateway_08onm9m">
+        <dc:Bounds x="505" y="252" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1jhxsd9_di" bpmnElement="Activity_0zoby45">
+        <dc:Bounds x="590" y="140" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0we28pb_di" bpmnElement="Activity_0915lzn">
+        <dc:Bounds x="590" y="340" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_076bdub_di" bpmnElement="Gateway_01jkmns">
+        <dc:Bounds x="725" y="252" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_044n9p6_di" bpmnElement="Gateway_044n9p6" isMarkerVisible="true">
+        <dc:Bounds x="815" y="252" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="802" y="309" width="78" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0f9x4cb_di" bpmnElement="Event_0f9x4cb">
+        <dc:Bounds x="822" y="162" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="798" y="132" width="84" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_140lt8b_di" bpmnElement="Event_140lt8b">
+        <dc:Bounds x="952" y="259" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="940" y="302" width="60" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0lh6nbf_di" bpmnElement="Event_0lh6nbf">
+        <dc:Bounds x="1992" y="259" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1968" y="302" width="85" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0bcws8c_di" bpmnElement="Activity_1toe2q7">
+        <dc:Bounds x="1860" y="237" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_02m9mju_di" bpmnElement="Activity_1qeeazn">
+        <dc:Bounds x="1730" y="237" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_09cw8ei_di" bpmnElement="Activity_0smqs09">
+        <dc:Bounds x="1610" y="237" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1rz3to0_di" bpmnElement="Activity_1lan415">
+        <dc:Bounds x="1490" y="237" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0v5fbt7_di" bpmnElement="Gateway_0xvjqow">
+        <dc:Bounds x="1045" y="252" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1wwelw3_di" bpmnElement="Activity_13cpqe4">
+        <dc:Bounds x="1140" y="237" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0l73in4_di" bpmnElement="Activity_09bdmjm">
+        <dc:Bounds x="1140" y="340" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1lqt04q_di" bpmnElement="Gateway_08ybd3s">
+        <dc:Bounds x="1275" y="252" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1dk3ys7_di" bpmnElement="Activity_0314kbq">
+        <dc:Bounds x="1370" y="237" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_03n3psw_di" bpmnElement="Flow_03n3psw">
+        <di:waypoint x="278" y="277" />
+        <di:waypoint x="350" y="277" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_00pnjdo_di" bpmnElement="Flow_00pnjdo">
+        <di:waypoint x="530" y="252" />
+        <di:waypoint x="530" y="180" />
+        <di:waypoint x="590" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0uj2k71_di" bpmnElement="Flow_0uj2k71">
+        <di:waypoint x="530" y="302" />
+        <di:waypoint x="530" y="380" />
+        <di:waypoint x="590" y="380" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0vl8jjj_di" bpmnElement="Flow_0vl8jjj">
+        <di:waypoint x="690" y="180" />
+        <di:waypoint x="750" y="180" />
+        <di:waypoint x="750" y="252" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1qn42jn_di" bpmnElement="Flow_1qn42jn">
+        <di:waypoint x="690" y="380" />
+        <di:waypoint x="750" y="380" />
+        <di:waypoint x="750" y="302" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0jpbnhk_di" bpmnElement="Flow_0jpbnhk">
+        <di:waypoint x="775" y="277" />
+        <di:waypoint x="815" y="277" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_00gdhi7_di" bpmnElement="Flow_00gdhi7">
+        <di:waypoint x="840" y="252" />
+        <di:waypoint x="840" y="198" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="849" y="222" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ek03ub_di" bpmnElement="Flow_1ek03ub">
+        <di:waypoint x="865" y="277" />
+        <di:waypoint x="952" y="277" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="900" y="253" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0070gch_di" bpmnElement="Flow_0070gch">
+        <di:waypoint x="1710" y="277" />
+        <di:waypoint x="1730" y="277" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0hxvmy4_di" bpmnElement="Flow_0hxvmy4">
+        <di:waypoint x="1960" y="277" />
+        <di:waypoint x="1992" y="277" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_15sp84a_di" bpmnElement="Flow_15sp84a">
+        <di:waypoint x="1095" y="277" />
+        <di:waypoint x="1140" y="277" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_15gvkdr_di" bpmnElement="Flow_15gvkdr">
+        <di:waypoint x="1070" y="302" />
+        <di:waypoint x="1070" y="380" />
+        <di:waypoint x="1140" y="380" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0z2nwd3_di" bpmnElement="Flow_0z2nwd3">
+        <di:waypoint x="1240" y="277" />
+        <di:waypoint x="1275" y="277" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1o6cyyw_di" bpmnElement="Flow_1o6cyyw">
+        <di:waypoint x="1240" y="380" />
+        <di:waypoint x="1300" y="380" />
+        <di:waypoint x="1300" y="302" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16pe1wd_di" bpmnElement="Flow_16pe1wd">
+        <di:waypoint x="988" y="277" />
+        <di:waypoint x="1045" y="277" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ihwp12_di" bpmnElement="Flow_0ihwp12">
+        <di:waypoint x="1325" y="277" />
+        <di:waypoint x="1370" y="277" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_04z9oqb_di" bpmnElement="Flow_04z9oqb">
+        <di:waypoint x="1590" y="277" />
+        <di:waypoint x="1610" y="277" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0sf2shg_di" bpmnElement="Flow_0sf2shg">
+        <di:waypoint x="1830" y="277" />
+        <di:waypoint x="1860" y="277" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16aozj9_di" bpmnElement="Flow_16aozj9">
+        <di:waypoint x="450" y="277" />
+        <di:waypoint x="505" y="277" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0k6ibd8_di" bpmnElement="Flow_0k6ibd8">
+        <di:waypoint x="1470" y="277" />
+        <di:waypoint x="1490" y="277" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
