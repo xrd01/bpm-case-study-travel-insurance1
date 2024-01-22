@@ -1,0 +1,14 @@
+{
+	"firstName": "Manfred",
+	"lastName": "Manfredius",
+	"birthDate": "2000-01-15",
+	"iban": "DE69 4105 0095 0035 6795 05",
+	"emailAddress": "max.hammerl@tu-dortmund.de",
+	"address": {
+		"street": "Augustastraße",
+		"number": "13",
+		"postalCode": "48153",
+		"city": "Münster",
+		"countryCode": "Deutschland"
+	}
+}

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1esayqs" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.17.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.3.0">
+  <bpmn:process id="CheckDataProcess" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="Data read">
+      <bpmn:outgoing>Flow_0vhqf92</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0vhqf92" sourceRef="StartEvent_1" targetRef="Gateway_0ixwyhx" />
+    <bpmn:parallelGateway id="Gateway_0ixwyhx">
+      <bpmn:incoming>Flow_0vhqf92</bpmn:incoming>
+      <bpmn:outgoing>Flow_19tp0q6</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0ggl1sm</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_19tp0q6" sourceRef="Gateway_0ixwyhx" targetRef="Activity_0xg4wsf" />
+    <bpmn:sequenceFlow id="Flow_0ggl1sm" sourceRef="Gateway_0ixwyhx" targetRef="Activity_0i3aicr" />
+    <bpmn:sequenceFlow id="Flow_1qa1ud6" sourceRef="Activity_0xg4wsf" targetRef="Gateway_0ks289b" />
+    <bpmn:sequenceFlow id="Flow_11k3o02" sourceRef="Activity_0i3aicr" targetRef="Gateway_0ks289b" />
+    <bpmn:parallelGateway id="Gateway_0ks289b">
+      <bpmn:incoming>Flow_1qa1ud6</bpmn:incoming>
+      <bpmn:incoming>Flow_11k3o02</bpmn:incoming>
+      <bpmn:outgoing>Flow_1o8tdop</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:endEvent id="Event_0htz5xt">
+      <bpmn:incoming>Flow_1o8tdop</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1o8tdop" sourceRef="Gateway_0ks289b" targetRef="Event_0htz5xt" />
+    <bpmn:callActivity id="Activity_0xg4wsf" name="Travel data check">
+      <bpmn:extensionElements>
+        <zeebe:calledElement processId="CheckTravelDataProcess" propagateAllChildVariables="false" propagateAllParentVariables="false" />
+        <zeebe:ioMapping>
+          <zeebe:input source="=data.travelData" target="travelData" />
+          <zeebe:output source="=travelCostIsPositive and travelStartBeforeEnd and travelStartInFuture and travelDestinationIsSafe" target="travelDataIsValid" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_19tp0q6</bpmn:incoming>
+      <bpmn:outgoing>Flow_1qa1ud6</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:callActivity id="Activity_0i3aicr" name="Personal data check">
+      <bpmn:extensionElements>
+        <zeebe:calledElement processId="CheckPersonalDataProcess" propagateAllChildVariables="false" propagateAllParentVariables="false" />
+        <zeebe:ioMapping>
+          <zeebe:input source="=data.policyHolder" target="personalData" />
+          <zeebe:input source="=count(data.insuredPartners)" target="insuredPartnersCount" />
+          <zeebe:output source="=ibanIsValid and countryOfResidenceIsValid and policyHolderIsAdult and belowInsuredPartnersMax" target="personalDataIsValid" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0ggl1sm</bpmn:incoming>
+      <bpmn:outgoing>Flow_11k3o02</bpmn:outgoing>
+    </bpmn:callActivity>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="CheckDataProcess">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="162" y="82" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="155" y="123" width="49" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1gi7jlg_di" bpmnElement="Gateway_0ixwyhx">
+        <dc:Bounds x="255" y="75" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0xyxzvt_di" bpmnElement="Gateway_0ks289b">
+        <dc:Bounds x="535" y="75" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0htz5xt_di" bpmnElement="Event_0htz5xt">
+        <dc:Bounds x="652" y="82" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1qjd9zg_di" bpmnElement="Activity_0xg4wsf">
+        <dc:Bounds x="370" y="60" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1wp3ckt_di" bpmnElement="Activity_0i3aicr">
+        <dc:Bounds x="370" y="170" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0vhqf92_di" bpmnElement="Flow_0vhqf92">
+        <di:waypoint x="198" y="100" />
+        <di:waypoint x="255" y="100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_19tp0q6_di" bpmnElement="Flow_19tp0q6">
+        <di:waypoint x="305" y="100" />
+        <di:waypoint x="370" y="100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ggl1sm_di" bpmnElement="Flow_0ggl1sm">
+        <di:waypoint x="280" y="125" />
+        <di:waypoint x="280" y="210" />
+        <di:waypoint x="370" y="210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1qa1ud6_di" bpmnElement="Flow_1qa1ud6">
+        <di:waypoint x="470" y="100" />
+        <di:waypoint x="535" y="100" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11k3o02_di" bpmnElement="Flow_11k3o02">
+        <di:waypoint x="470" y="210" />
+        <di:waypoint x="560" y="210" />
+        <di:waypoint x="560" y="125" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1o8tdop_di" bpmnElement="Flow_1o8tdop">
+        <di:waypoint x="585" y="100" />
+        <di:waypoint x="652" y="100" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

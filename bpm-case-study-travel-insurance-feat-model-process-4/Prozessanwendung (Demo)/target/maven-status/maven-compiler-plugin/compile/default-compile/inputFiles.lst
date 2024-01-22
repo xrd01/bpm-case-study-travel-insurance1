@@ -1,0 +1,16 @@
+/Users/dengxiaorui/Desktop/bpm-case-study-travel-insurance-feat-model-process-4/Prozessanwendung (Demo)/src/main/java/de/viadee/bpm/camunda/travelinsuranceprocessapp/model/Address.java
+/Users/dengxiaorui/Desktop/bpm-case-study-travel-insurance-feat-model-process-4/Prozessanwendung (Demo)/src/main/java/de/viadee/bpm/camunda/travelinsuranceprocessapp/worker/AddressSourceComparer.java
+/Users/dengxiaorui/Desktop/bpm-case-study-travel-insurance-feat-model-process-4/Prozessanwendung (Demo)/src/main/java/de/viadee/bpm/camunda/travelinsuranceprocessapp/service/TravelInsuranceService.java
+/Users/dengxiaorui/Desktop/bpm-case-study-travel-insurance-feat-model-process-4/Prozessanwendung (Demo)/src/main/java/de/viadee/bpm/camunda/travelinsuranceprocessapp/processinterface/InsuranceRestController.java
+/Users/dengxiaorui/Desktop/bpm-case-study-travel-insurance-feat-model-process-4/Prozessanwendung (Demo)/src/main/java/de/viadee/bpm/camunda/travelinsuranceprocessapp/worker/TransferCustomerId.java
+/Users/dengxiaorui/Desktop/bpm-case-study-travel-insurance-feat-model-process-4/Prozessanwendung (Demo)/src/main/java/de/viadee/bpm/camunda/travelinsuranceprocessapp/model/TravelInsuranceRequest.java
+/Users/dengxiaorui/Desktop/bpm-case-study-travel-insurance-feat-model-process-4/Prozessanwendung (Demo)/src/main/java/de/viadee/bpm/camunda/travelinsuranceprocessapp/model/TravelInsuranceProcessException.java
+/Users/dengxiaorui/Desktop/bpm-case-study-travel-insurance-feat-model-process-4/Prozessanwendung (Demo)/src/main/java/de/viadee/bpm/camunda/travelinsuranceprocessapp/worker/SearchCustomer.java
+/Users/dengxiaorui/Desktop/bpm-case-study-travel-insurance-feat-model-process-4/Prozessanwendung (Demo)/src/main/java/de/viadee/bpm/camunda/travelinsuranceprocessapp/worker/CompareData.java
+/Users/dengxiaorui/Desktop/bpm-case-study-travel-insurance-feat-model-process-4/Prozessanwendung (Demo)/src/main/java/de/viadee/bpm/camunda/travelinsuranceprocessapp/TravelInsuranceProcessAppApplication.java
+/Users/dengxiaorui/Desktop/bpm-case-study-travel-insurance-feat-model-process-4/Prozessanwendung (Demo)/src/main/java/de/viadee/bpm/camunda/travelinsuranceprocessapp/config/ProcessAppConfig.java
+/Users/dengxiaorui/Desktop/bpm-case-study-travel-insurance-feat-model-process-4/Prozessanwendung (Demo)/src/main/java/de/viadee/bpm/camunda/travelinsuranceprocessapp/model/TravelInsurance.java
+/Users/dengxiaorui/Desktop/bpm-case-study-travel-insurance-feat-model-process-4/Prozessanwendung (Demo)/src/main/java/de/viadee/bpm/camunda/travelinsuranceprocessapp/model/TravelData.java
+/Users/dengxiaorui/Desktop/bpm-case-study-travel-insurance-feat-model-process-4/Prozessanwendung (Demo)/src/main/java/de/viadee/bpm/camunda/travelinsuranceprocessapp/processinterface/InsuranceViewController.java
+/Users/dengxiaorui/Desktop/bpm-case-study-travel-insurance-feat-model-process-4/Prozessanwendung (Demo)/src/main/java/de/viadee/bpm/camunda/travelinsuranceprocessapp/worker/TravelInsuranceReadInputData.java
+/Users/dengxiaorui/Desktop/bpm-case-study-travel-insurance-feat-model-process-4/Prozessanwendung (Demo)/src/main/java/de/viadee/bpm/camunda/travelinsuranceprocessapp/model/Partner.java

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1bjof42" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="f9f6097" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.2.0" camunda:diagramRelationId="363827ba-a158-48c3-9f2f-ed659376f35c">
+  <bpmn:process id="DeductibleCalculationDataProcess" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="input correct">
+      <bpmn:outgoing>Flow_1565ggt</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:scriptTask id="Activity_13cpqe4" name="Calculate travel duration">
+      <bpmn:extensionElements>
+        <zeebe:script expression="=(date(travelEnd) - date(travelStart)).days" resultVariable="travelDurationInDays" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_17whmdd</bpmn:incoming>
+      <bpmn:outgoing>Flow_07pxtcx</bpmn:outgoing>
+    </bpmn:scriptTask>
+    <bpmn:sequenceFlow id="Flow_1565ggt" sourceRef="StartEvent_1" targetRef="Gateway_00ardwr" />
+    <bpmn:parallelGateway id="Gateway_00ardwr">
+      <bpmn:incoming>Flow_1565ggt</bpmn:incoming>
+      <bpmn:outgoing>Flow_17whmdd</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0nzf4go</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_17whmdd" sourceRef="Gateway_00ardwr" targetRef="Activity_13cpqe4" />
+    <bpmn:businessRuleTask id="Activity_09bdmjm" name="Classify travel destination country">
+      <bpmn:extensionElements>
+        <zeebe:calledDecision decisionId="Decision_006od3h" resultVariable="travelDestinationClass" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0nzf4go</bpmn:incoming>
+      <bpmn:outgoing>Flow_00v3gh0</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:sequenceFlow id="Flow_0nzf4go" sourceRef="Gateway_00ardwr" targetRef="Activity_09bdmjm" />
+    <bpmn:sequenceFlow id="Flow_07pxtcx" sourceRef="Activity_13cpqe4" targetRef="Gateway_1uy0xfc" />
+    <bpmn:parallelGateway id="Gateway_1uy0xfc">
+      <bpmn:incoming>Flow_07pxtcx</bpmn:incoming>
+      <bpmn:incoming>Flow_00v3gh0</bpmn:incoming>
+      <bpmn:outgoing>Flow_1w2jjqh</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_00v3gh0" sourceRef="Activity_09bdmjm" targetRef="Gateway_1uy0xfc" />
+    <bpmn:endEvent id="Event_0p9bazb" name="data for deductible calculation available">
+      <bpmn:incoming>Flow_1w2jjqh</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1w2jjqh" sourceRef="Gateway_1uy0xfc" targetRef="Event_0p9bazb" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="DeductibleCalculationDataProcess">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="172" y="79" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="160" y="122" width="61" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1wwelw3_di" bpmnElement="Activity_13cpqe4">
+        <dc:Bounds x="370" y="57" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1568w8s_di" bpmnElement="Gateway_00ardwr">
+        <dc:Bounds x="265" y="72" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0l73in4_di" bpmnElement="Activity_09bdmjm">
+        <dc:Bounds x="370" y="160" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0dwrso9_di" bpmnElement="Gateway_1uy0xfc">
+        <dc:Bounds x="525" y="72" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0p9bazb_di" bpmnElement="Event_0p9bazb">
+        <dc:Bounds x="632" y="79" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="624" y="122" width="52" height="53" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1565ggt_di" bpmnElement="Flow_1565ggt">
+        <di:waypoint x="208" y="97" />
+        <di:waypoint x="265" y="97" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_17whmdd_di" bpmnElement="Flow_17whmdd">
+        <di:waypoint x="315" y="97" />
+        <di:waypoint x="370" y="97" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0nzf4go_di" bpmnElement="Flow_0nzf4go">
+        <di:waypoint x="290" y="122" />
+        <di:waypoint x="290" y="200" />
+        <di:waypoint x="370" y="200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_07pxtcx_di" bpmnElement="Flow_07pxtcx">
+        <di:waypoint x="470" y="97" />
+        <di:waypoint x="525" y="97" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_00v3gh0_di" bpmnElement="Flow_00v3gh0">
+        <di:waypoint x="470" y="200" />
+        <di:waypoint x="550" y="200" />
+        <di:waypoint x="550" y="122" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1w2jjqh_di" bpmnElement="Flow_1w2jjqh">
+        <di:waypoint x="575" y="97" />
+        <di:waypoint x="632" y="97" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

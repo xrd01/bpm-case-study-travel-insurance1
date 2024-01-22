@@ -1,0 +1,16 @@
+de/viadee/bpm/camunda/travelinsuranceprocessapp/processinterface/InsuranceRestController.class
+de/viadee/bpm/camunda/travelinsuranceprocessapp/model/Partner.class
+de/viadee/bpm/camunda/travelinsuranceprocessapp/model/TravelInsuranceProcessException.class
+de/viadee/bpm/camunda/travelinsuranceprocessapp/config/ProcessAppConfig.class
+de/viadee/bpm/camunda/travelinsuranceprocessapp/model/TravelInsuranceRequest.class
+de/viadee/bpm/camunda/travelinsuranceprocessapp/model/Address.class
+de/viadee/bpm/camunda/travelinsuranceprocessapp/service/TravelInsuranceService.class
+de/viadee/bpm/camunda/travelinsuranceprocessapp/model/TravelData.class
+de/viadee/bpm/camunda/travelinsuranceprocessapp/worker/TravelInsuranceReadInputData.class
+de/viadee/bpm/camunda/travelinsuranceprocessapp/TravelInsuranceProcessAppApplication.class
+de/viadee/bpm/camunda/travelinsuranceprocessapp/processinterface/InsuranceViewController.class
+de/viadee/bpm/camunda/travelinsuranceprocessapp/worker/TransferCustomerId.class
+de/viadee/bpm/camunda/travelinsuranceprocessapp/worker/AddressSourceComparer.class
+de/viadee/bpm/camunda/travelinsuranceprocessapp/model/TravelInsurance.class
+de/viadee/bpm/camunda/travelinsuranceprocessapp/worker/SearchCustomer.class
+de/viadee/bpm/camunda/travelinsuranceprocessapp/worker/CompareData.class
