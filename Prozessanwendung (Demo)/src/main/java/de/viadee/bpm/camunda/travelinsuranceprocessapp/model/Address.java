@@ -1,5 +1,6 @@
 package de.viadee.bpm.camunda.travelinsuranceprocessapp.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import java.util.Objects;
@@ -53,6 +54,11 @@ public class Address {
         this.country = country;
     }
 
+    @JsonProperty("postalCode")
+    public void setPostalCode(final String postalCode) { this.postCode = postalCode; }
+
+    @JsonProperty("countryCode")
+    public void setCountryCode(final String countryCode) { this.country = countryCode; }
     @Override
     public String toString() {
         return ReflectionToStringBuilder.toString(this, NO_CLASS_NAME_STYLE, false, false, true, Object.class);

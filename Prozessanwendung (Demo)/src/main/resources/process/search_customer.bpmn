@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1u9537v" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="f9f6097" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.2.0" camunda:diagramRelationId="dd08a6bd-43a3-4f1e-92c4-2c6f5db48734">
-  <bpmn:process id="Process_lmbepjw" isExecutable="true">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1u9537v" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Web Modeler" exporterVersion="f9f6097" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.3.0">
+  <bpmn:process id="SearchCustomerProcess" isExecutable="true">
+    <bpmn:extensionElements />
     <bpmn:startEvent id="StartEvent_1" name="Data is correct">
       <bpmn:outgoing>Flow_01s40ej</bpmn:outgoing>
     </bpmn:startEvent>
@@ -11,7 +12,7 @@
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="Flow_01s40ej" sourceRef="StartEvent_1" targetRef="Gateway_0oknd64" />
     <bpmn:sequenceFlow id="Flow_08k4vef" name="yes" sourceRef="Gateway_0oknd64" targetRef="Activity_1tofd28">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=travelInsurance.policyHolder.id != ""</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=customerId != ""</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:serviceTask id="Activity_1tofd28" name="Search customer with id" zeebe:modelerTemplate="io.camunda.connectors.HttpJson.v2" zeebe:modelerTemplateVersion="5" zeebe:modelerTemplateIcon="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE3LjAzMzUgOC45OTk5N0MxNy4wMzM1IDEzLjQ0NzUgMTMuNDI4MSAxNy4wNTI5IDguOTgwNjUgMTcuMDUyOUM0LjUzMzE2IDE3LjA1MjkgMC45Mjc3NjUgMTMuNDQ3NSAwLjkyNzc2NSA4Ljk5OTk3QzAuOTI3NzY1IDQuNTUyNDggNC41MzMxNiAwLjk0NzA4MyA4Ljk4MDY1IDAuOTQ3MDgzQzEzLjQyODEgMC45NDcwODMgMTcuMDMzNSA0LjU1MjQ4IDE3LjAzMzUgOC45OTk5N1oiIGZpbGw9IiM1MDU1NjIiLz4KPHBhdGggZD0iTTQuOTMxMjYgMTQuMTU3MUw2Ljc4MTA2IDMuNzE0NzFIMTAuMTM3NUMxMS4xOTE3IDMuNzE0NzEgMTEuOTgyNCAzLjk4MzIzIDEyLjUwOTUgNC41MjAyN0MxMy4wNDY1IDUuMDQ3MzYgMTMuMzE1IDUuNzMzNTggMTMuMzE1IDYuNTc4OTJDMTMuMzE1IDcuNDQ0MTQgMTMuMDcxNCA4LjE1NTIyIDEyLjU4NDEgOC43MTIxNUMxMi4xMDY3IDkuMjU5MTMgMTEuNDU1MyA5LjYzNzA1IDEwLjYyOTggOS44NDU5TDEyLjA2MTkgMTQuMTU3MUgxMC4zMzE1TDkuMDMzNjQgMTAuMDI0OUg3LjI0MzUxTDYuNTEyNTQgMTQuMTU3MUg0LjkzMTI2Wk03LjQ5NzExIDguNTkyODFIOS4yNDI0OEM5Ljk5ODMyIDguNTkyODEgMTAuNTkwMSA4LjQyMzc0IDExLjAxNzcgOC4wODU2MUMxMS40NTUzIDcuNzM3NTMgMTEuNjc0MSA3LjI2NTEzIDExLjY3NDEgNi42Njg0MkMxMS42NzQxIDYuMTkxMDYgMTEuNTI0OSA1LjgxODExIDExLjIyNjUgNS41NDk1OUMxMC45MjgyIDUuMjcxMTMgMTAuNDU1OCA1LjEzMTkgOS44MDkzNiA1LjEzMTlIOC4xMDg3NEw3LjQ5NzExIDguNTkyODFaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K">
       <bpmn:extensionElements>
@@ -19,14 +20,13 @@
         <zeebe:ioMapping>
           <zeebe:input source="basic" target="authentication.type" />
           <zeebe:input source="user1" target="authentication.username" />
-          <zeebe:input source="{{secrets.GRUPPE_1_TRAVEL_INSURANCE_API_PASSWORD}}" target="authentication.password" />
+          <zeebe:input source="KUDipj7Z" target="authentication.password" />
           <zeebe:input source="GET" target="method" />
-          <zeebe:input source="=&#34;https://travel-insurance-api.aws-playground.viadee.cloud/partner/&#34;+customerNumber" target="url" />
+          <zeebe:input source="=&#34;https://travel-insurance-api.aws-playground.viadee.cloud/partner/&#34;+customerId" target="url" />
           <zeebe:input source="20" target="connectionTimeoutInSeconds" />
         </zeebe:ioMapping>
         <zeebe:taskHeaders>
-          <zeebe:header key="resultVariable" value="foundCustomerWithId" />
-          <zeebe:header key="resultExpression" value="={statusCode:response.statusCode}&#10; " />
+          <zeebe:header key="resultExpression" value="=if response.body != {} then&#10;  {foundCustomerWithId: true, systemData: response.body}&#10;else&#10;  {foundCustomerWithId: false, systemData: null}" />
           <zeebe:header key="retryBackoff" value="PT0S" />
         </zeebe:taskHeaders>
       </bpmn:extensionElements>
@@ -34,7 +34,7 @@
       <bpmn:outgoing>Flow_0a694yz</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_0pqw7lu" name="no" sourceRef="Gateway_0oknd64" targetRef="Activity_11r7ss6">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=travelInsurance.policyHolder.id = ""</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=customerId = ""</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:exclusiveGateway id="Gateway_1wq12g3" name="Found customer with id?">
       <bpmn:incoming>Flow_0a694yz</bpmn:incoming>
@@ -52,10 +52,10 @@
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=partnerId != ""</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_19h58gc" name="yes" sourceRef="Gateway_1wq12g3" targetRef="Activity_1ctcw5i">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=statusCode=200 </bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=foundCustomerWithId</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0sg74y6" name="no" sourceRef="Gateway_1wq12g3" targetRef="Activity_18etdqv">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=statusCode=404</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=not(foundCustomerWithId)</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:serviceTask id="Activity_0djnxg1" name="Create new customer in system" zeebe:modelerTemplate="io.camunda.connectors.HttpJson.v2" zeebe:modelerTemplateVersion="5" zeebe:modelerTemplateIcon="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE3LjAzMzUgOC45OTk5N0MxNy4wMzM1IDEzLjQ0NzUgMTMuNDI4MSAxNy4wNTI5IDguOTgwNjUgMTcuMDUyOUM0LjUzMzE2IDE3LjA1MjkgMC45Mjc3NjUgMTMuNDQ3NSAwLjkyNzc2NSA4Ljk5OTk3QzAuOTI3NzY1IDQuNTUyNDggNC41MzMxNiAwLjk0NzA4MyA4Ljk4MDY1IDAuOTQ3MDgzQzEzLjQyODEgMC45NDcwODMgMTcuMDMzNSA0LjU1MjQ4IDE3LjAzMzUgOC45OTk5N1oiIGZpbGw9IiM1MDU1NjIiLz4KPHBhdGggZD0iTTQuOTMxMjYgMTQuMTU3MUw2Ljc4MTA2IDMuNzE0NzFIMTAuMTM3NUMxMS4xOTE3IDMuNzE0NzEgMTEuOTgyNCAzLjk4MzIzIDEyLjUwOTUgNC41MjAyN0MxMy4wNDY1IDUuMDQ3MzYgMTMuMzE1IDUuNzMzNTggMTMuMzE1IDYuNTc4OTJDMTMuMzE1IDcuNDQ0MTQgMTMuMDcxNCA4LjE1NTIyIDEyLjU4NDEgOC43MTIxNUMxMi4xMDY3IDkuMjU5MTMgMTEuNDU1MyA5LjYzNzA1IDEwLjYyOTggOS44NDU5TDEyLjA2MTkgMTQuMTU3MUgxMC4zMzE1TDkuMDMzNjQgMTAuMDI0OUg3LjI0MzUxTDYuNTEyNTQgMTQuMTU3MUg0LjkzMTI2Wk03LjQ5NzExIDguNTkyODFIOS4yNDI0OEM5Ljk5ODMyIDguNTkyODEgMTAuNTkwMSA4LjQyMzc0IDExLjAxNzcgOC4wODU2MUMxMS40NTUzIDcuNzM3NTMgMTEuNjc0MSA3LjI2NTEzIDExLjY3NDEgNi42Njg0MkMxMS42NzQxIDYuMTkxMDYgMTEuNTI0OSA1LjgxODExIDExLjIyNjUgNS41NDk1OUMxMC45MjgyIDUuMjcxMTMgMTAuNDU1OCA1LjEzMTkgOS44MDkzNiA1LjEzMTlIOC4xMDg3NEw3LjQ5NzExIDguNTkyODFaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K">
       <bpmn:extensionElements>
@@ -63,7 +63,7 @@
         <zeebe:ioMapping>
           <zeebe:input source="basic" target="authentication.type" />
           <zeebe:input source="user1" target="authentication.username" />
-          <zeebe:input source="{{secrets.GRUPPE_1_TRAVEL_INSURANCE_API_PASSWORD}}" target="authentication.password" />
+          <zeebe:input source="KUDipj7Z" target="authentication.password" />
           <zeebe:input source="POST" target="method" />
           <zeebe:input source="https://travel-insurance-api.aws-playground.viadee.cloud/partner" target="url" />
           <zeebe:input source="20" target="connectionTimeoutInSeconds" />
@@ -71,18 +71,19 @@
         </zeebe:ioMapping>
         <zeebe:taskHeaders>
           <zeebe:header key="resultVariable" value="response" />
-          <zeebe:header key="resultExpression" value="={partnerId: response.body}" />
+          <zeebe:header key="resultExpression" value="={partnerId: response.body, customerExists: false}" />
           <zeebe:header key="retryBackoff" value="PT0S" />
         </zeebe:taskHeaders>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1ij220g</bpmn:incoming>
+      <bpmn:incoming>Flow_1rdo0z8</bpmn:incoming>
       <bpmn:outgoing>Flow_0n968ro</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:serviceTask id="Activity_198a3ij" name="Transfer customer id">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="transfer-customer-id" />
         <zeebe:ioMapping>
-          <zeebe:output source="=travelInsurance.travelInsurance" target="travelInsurance" />
+          <zeebe:output source="=travelInsurance" target="travelInsurance" />
         </zeebe:ioMapping>
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1c7t70e</bpmn:incoming>
@@ -101,7 +102,7 @@
         <zeebe:formDefinition formKey="Form_0p4upi9" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0sg74y6</bpmn:incoming>
-      <bpmn:outgoing>Flow_0zc7mb4</bpmn:outgoing>
+      <bpmn:outgoing>Flow_147tjbq</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:exclusiveGateway id="Gateway_01b6tm2" name="Input matches system data?">
       <bpmn:incoming>Flow_0ec9edm</bpmn:incoming>
@@ -117,12 +118,17 @@
       <bpmn:outgoing>Flow_1ih32he</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:endEvent id="Event_1dzlkxc" name="Customer saved in system">
-      <bpmn:incoming>Flow_0zc7mb4</bpmn:incoming>
+      <bpmn:extensionElements>
+        <zeebe:ioMapping>
+          <zeebe:output source="=partnerId != &#34;&#34;" target="customerExists" />
+          <zeebe:output source="=if partnerId != &#34;&#34; then&#10;  {partnerId: partnerId}&#10;else if travelInsurance.policyHolder.id != &#34;&#34; then&#10;  {partnerId: travelInsurance.policyHolder.id}&#10;else&#10;  null" target="partnerId" />
+        </zeebe:ioMapping>
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0n968ro</bpmn:incoming>
       <bpmn:incoming>Flow_1ih32he</bpmn:incoming>
       <bpmn:incoming>Flow_15chq3o</bpmn:incoming>
+      <bpmn:incoming>Flow_0flxr1w</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="Flow_0zc7mb4" sourceRef="Activity_18etdqv" targetRef="Event_1dzlkxc" />
     <bpmn:sequenceFlow id="Flow_0n968ro" sourceRef="Activity_0djnxg1" targetRef="Event_1dzlkxc" />
     <bpmn:sequenceFlow id="Flow_1ih32he" sourceRef="Activity_0yxfzx0" targetRef="Event_1dzlkxc" />
     <bpmn:sequenceFlow id="Flow_15chq3o" name="yes" sourceRef="Gateway_01b6tm2" targetRef="Event_1dzlkxc">
@@ -134,15 +140,14 @@
         <zeebe:ioMapping>
           <zeebe:input source="basic" target="authentication.type" />
           <zeebe:input source="user1" target="authentication.username" />
-          <zeebe:input source="{{secrets.GRUPPE_1_TRAVEL_INSURANCE_API_PASSWORD}}" target="authentication.password" />
+          <zeebe:input source="KUDipj7Z" target="authentication.password" />
           <zeebe:input source="GET" target="method" />
           <zeebe:input source="https://travel-insurance-api.aws-playground.viadee.cloud/partner/search" target="url" />
-          <zeebe:input source="={ firstName: firstname,&#10;lastName: lastname&#10;}" target="queryParameters" />
+          <zeebe:input source="={ firstName: firstName,&#10; lastName: lastName&#10;}" target="queryParameters" />
           <zeebe:input source="20" target="connectionTimeoutInSeconds" />
         </zeebe:ioMapping>
         <zeebe:taskHeaders>
-          <zeebe:header key="resultVariable" value="partnerId" />
-          <zeebe:header key="resultExpression" value="=if response.body != [] then&#10; {partnerId: response.body[1].partnerId}&#10;else&#10;  {partnerId: &#34;&#34;}" />
+          <zeebe:header key="resultExpression" value="=if response.body != [] then&#10; {partnerId: response.body[1].partnerId, systemData: response.body[1]}&#10;else&#10;  {partnerId: &#34;&#34;, systemData: null}" />
           <zeebe:header key="errorExpression" value="=if error.code = &#34;404&#34; then&#10;  bpmnError(&#34;404&#34;, &#34;Not found&#34;)&#10;else if error.code = &#34;500&#34; then&#10;  bpmnError(&#34;500&#34;, error.message)&#10;else&#10;  null" />
           <zeebe:header key="retryBackoff" value="PT0S" />
         </zeebe:taskHeaders>
@@ -154,10 +159,22 @@
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=partnerId = ""</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0jgu3xl" sourceRef="Activity_198a3ij" targetRef="Activity_1ctcw5i" />
+    <bpmn:exclusiveGateway id="Gateway_0nvqwjw" name="Customer Found?">
+      <bpmn:incoming>Flow_147tjbq</bpmn:incoming>
+      <bpmn:outgoing>Flow_0flxr1w</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1rdo0z8</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_147tjbq" sourceRef="Activity_18etdqv" targetRef="Gateway_0nvqwjw" />
+    <bpmn:sequenceFlow id="Flow_0flxr1w" name="yes" sourceRef="Gateway_0nvqwjw" targetRef="Event_1dzlkxc">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=newCustomer = false and partnerId != ""</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1rdo0z8" name="no" sourceRef="Gateway_0nvqwjw" targetRef="Activity_0djnxg1">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=newCustomer = true</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
   </bpmn:process>
   <bpmn:error id="Error_1xvxmcl" name="Error_3b03ph2" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
-    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_lmbepjw">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="SearchCustomerProcess">
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
         <dc:Bounds x="179" y="139" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -219,6 +236,12 @@
       <bpmndi:BPMNShape id="Activity_0m0dpp6_di" bpmnElement="Activity_11r7ss6">
         <dc:Bounds x="370" y="380" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0nvqwjw_di" bpmnElement="Gateway_0nvqwjw" isMarkerVisible="true">
+        <dc:Bounds x="765" y="132" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="745" y="182" width="89" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_01s40ej_di" bpmnElement="Flow_01s40ej">
         <di:waypoint x="215" y="157" />
         <di:waypoint x="265" y="157" />
@@ -279,10 +302,6 @@
           <dc:Bounds x="832" y="262" width="13" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0zc7mb4_di" bpmnElement="Flow_0zc7mb4">
-        <di:waypoint x="720" y="157" />
-        <di:waypoint x="892" y="157" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0n968ro_di" bpmnElement="Flow_0n968ro">
         <di:waypoint x="960" y="520" />
         <di:waypoint x="1020" y="520" />
@@ -295,10 +314,11 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_15chq3o_di" bpmnElement="Flow_15chq3o">
         <di:waypoint x="790" y="255" />
-        <di:waypoint x="790" y="157" />
-        <di:waypoint x="892" y="157" />
+        <di:waypoint x="790" y="200" />
+        <di:waypoint x="910" y="200" />
+        <di:waypoint x="910" y="175" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="796" y="203" width="18" height="14" />
+          <dc:Bounds x="796" y="223" width="18" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1ij220g_di" bpmnElement="Flow_1ij220g">
@@ -312,6 +332,28 @@
       <bpmndi:BPMNEdge id="Flow_0jgu3xl_di" bpmnElement="Flow_0jgu3xl">
         <di:waypoint x="670" y="380" />
         <di:waypoint x="670" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_147tjbq_di" bpmnElement="Flow_147tjbq">
+        <di:waypoint x="720" y="157" />
+        <di:waypoint x="765" y="157" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0flxr1w_di" bpmnElement="Flow_0flxr1w">
+        <di:waypoint x="815" y="157" />
+        <di:waypoint x="892" y="157" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="845" y="139" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1rdo0z8_di" bpmnElement="Flow_1rdo0z8">
+        <di:waypoint x="790" y="132" />
+        <di:waypoint x="790" y="70" />
+        <di:waypoint x="1100" y="70" />
+        <di:waypoint x="1100" y="620" />
+        <di:waypoint x="910" y="620" />
+        <di:waypoint x="910" y="560" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1109" y="342" width="13" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

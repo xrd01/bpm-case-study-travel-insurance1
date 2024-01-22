@@ -19,15 +19,29 @@
       },
       "id": "Field_1haawti",
       "key": "partnerId"
+    },
+    {
+      "label": "Neukunde",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_0hn8pdi",
+        "columns": null
+      },
+      "id": "Field_00tfdeg",
+      "key": "newCustomer",
+      "validate": {
+        "required": false
+      },
+      "defaultValue": false
     }
   ],
   "type": "default",
   "id": "Form_0p4upi9",
   "executionPlatform": "Camunda Cloud",
-  "executionPlatformVersion": "8.3.0",
+  "executionPlatformVersion": "8.2.0",
   "exporter": {
     "name": "Camunda Modeler",
-    "version": "5.17.0"
+    "version": "5.18.0"
   },
-  "schemaVersion": 12
+  "schemaVersion": 13
 }

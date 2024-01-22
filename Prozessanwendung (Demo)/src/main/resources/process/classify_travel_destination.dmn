@@ -7,7 +7,7 @@
     <decisionTable id="DecisionTable_1dbekdh" hitPolicy="FIRST">
       <input id="Input_1" label="Reiseziel">
         <inputExpression id="InputExpression_1" typeRef="string">
-          <text>travelInsurance.travelData.destination</text>
+          <text>travelDestination</text>
         </inputExpression>
       </input>
       <output id="Output_1" label="Klasse" name="travelDestinationClass" typeRef="string" />
